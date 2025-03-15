@@ -12,7 +12,7 @@ load_dotenv(dotenv_path=env_path)
 class Settings(BaseSettings):
     env_name: str = "Local"
     base_url: str = "http://localhost:8000"
-    PROJECT_NAME:str = "First Timers"
+    PROJECT_NAME:str = "Turtle Link Shortener"
     PROJECT_VERSION: str = "1.0.0"
 
     POSTGRES_USER : str = os.environ.get("POSTGRES_USER")
