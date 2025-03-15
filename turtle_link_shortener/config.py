@@ -1,18 +1,26 @@
 from pydantic_settings import BaseSettings
+from pathlib import Path
+from dotenv import load_dotenv
 from functools import lru_cache
+import os
+
+
+env_path = Path(".") / ".env"
+load_dotenv(dotenv_path=env_path)
 
 
 class Settings(BaseSettings):
     env_name: str = "Local"
     base_url: str = "http://localhost:8000"
-    db_url: str = "sqlite:///./shortener.db"
+    PROJECT_NAME:str = "First Timers"
+    PROJECT_VERSION: str = "1.0.0"
 
-    class Config:
-        # allows the import of environment variables from .env
-        # env file has variables included as attributes in
-        # this class and more. you can decide to go with the
-        # default preset used above or set your own .env file
-        env_file = ".env"
+    POSTGRES_USER : str = os.environ.get("POSTGRES_USER")
+    POSTGRES_PASSWORD: str = os.environ.get("POSTGRES_PASSWORD")
+    POSTGRES_SERVER : str = os.environ.get("POSTGRES_SERVER","localhost")
+    POSTGRES_PORT : str = os.environ.get("POSTGRES_PORT",5432)
+    POSTGRES_DB : str = os.environ.get("POSTGRES_DB")
+    DATABASE_URL: str = os.environ.get("DATABASE_URL")
 
 
 @lru_cache
