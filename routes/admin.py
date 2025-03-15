@@ -14,7 +14,7 @@ admin = APIRouter()
 async def create_admin(
     new_admin: AdminCreate, db: Session = Depends(get_db)
 ):
-    db_admin = UserModel(**new_admin.dict())
+    db_admin = UserModel(**new_admin.model_dump())
     db_admin.password = Password.hash(db_admin.password)
 
     db.add(db_admin)

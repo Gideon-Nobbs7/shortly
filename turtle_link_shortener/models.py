@@ -6,7 +6,7 @@ from .database import Base
 class UserURL(Base):
     __tablename__ = "user_url"
 
-    user_id = Column(Integer, ForeignKey("user.id"), primary_key=True, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), primary_key=True, nullable=False)
     link_created = Column(
         String, ForeignKey("urls.custom_url"), primary_key=True, nullable=False
     )
@@ -41,7 +41,7 @@ class URL(Base):
 
 
 class User(Base):
-    __tablename__ = "user"
+    __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
 

@@ -22,7 +22,7 @@ user = APIRouter()
 
 @user.post("/user/create", tags=["users"])
 async def create_user(new_user: UserCreate, db: Session = Depends(get_db)):
-    db_user = UserModel(**new_user.dict())
+    db_user = UserModel(**new_user.model_dump())
     db_user.password = Password.hash(db_user.password)
 
     db.add(db_user)
