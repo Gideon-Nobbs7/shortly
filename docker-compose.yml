@@ -1,0 +1,71 @@
+services:
+  shortly-1:
+    image: shortly-1
+    build: 
+      dockerfile: Dockerfile 
+    init: true
+    depends_on:
+      - db
+    networks:
+      - shortly-network
+    volumes:
+      - type: bind
+        source: ./routes
+        target: /app/
+      - type: bind
+        source:  ./turtle_link_shortener
+        target: /app/
+      - type: bind
+        source:  ./utils
+        target: /app/
+    ports:
+      -  8000:8000
+    environment:
+      - DATABASE_URL=${POSTGRES_DB}
+      - WORKER_ID=1
+  
+  shortly-2:
+    image: shortly-2
+    build: 
+      dockerfile: Dockerfile 
+    init: true
+    depends_on:
+      - db
+    networks:
+      - shortly-network
+    volumes:
+      - type: bind
+        source: ./routes
+        target: /app/
+      - type: bind
+        source:  ./turtle_link_shortener
+        target: /app/
+      - type: bind
+        source:  ./utils
+        target: /app/
+    ports:
+      -  8001:8001
+    environment:
+      - DATABASE_URL=${POSTGRES_DB}
+      - WORKER_ID=2 
+  
+  db:
+    image: postgres:15.1-alpine
+    container_name: postgres_db
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - shortly-network
+    environment:
+      - POSTGRES_USER=${postgres_user}
+      - POSTGRES_PASSWORD=${postgres_password}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - 5432:5432
+
+
+volumes:
+  pgdata:
+networks:
+  shortly-network:
