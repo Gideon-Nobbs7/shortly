@@ -25,7 +25,7 @@ class UserURL(Base):
 class URL(Base):
     __tablename__ = "urls"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(BigInteger, primary_key=True)
 
     custom_url = Column(String, unique=True, nullable=False, index=True)
     secret_key = Column(String, unique=True, nullable=False, index=True)

@@ -78,9 +78,13 @@ async def shorten_link(
     key, secret_key = generate_keys(custom_key)
     now = datetime.now()
 
-    short_code = base62_encode(user_id)
+    # snowflake to generate url_id in distributed systems
+    snowflake = SnowflakeGenerator(worker_id=1, datacenter_id=0)
+    url_id = snowflake.next_id()
+
+    short_code = base62_encode(url_id)
     # add the generated data to URL Model Table
-    db_url = URLModel(target_url=url.target_url, custom_url=short_code, 
+    db_url = URLModel(id=url_id, target_url=url.target_url, custom_url=short_code, 
                     secret_key=secret_key, time_created=now)
 
     db_user_url = UserURL(user_id=user_id, link_created=key, link_time_created=now)
