@@ -128,10 +128,10 @@ def generate_short_code_from_snowflake(worker_id=1, datacenter_id=0):
     return base62_encode(snowflake_id, length=7)
 
 # Example usage
-if __name__ == "__main__":
-    # Generate a few short codes to demonstrate
-    for i in range(5):
-        short_code = generate_short_code_from_snowflake(worker_id=1)
-        print(f"Generated short code: {short_code}")
-        # Small delay to see different timestamps
-        time.sleep(0.1)
+# if __name__ == "__main__":
+#     # Generate a few short codes to demonstrate
+#     for i in range(5):
+#         short_code = generate_short_code_from_snowflake(worker_id=1)
+#         print(f"Generated short code: {short_code}")
+#         # Small delay to see different timestamps
+#         time.sleep(0.1)

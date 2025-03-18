@@ -5,8 +5,9 @@ from schemas.url import URLBase
 from utils.database_utils import get_db
 from utils.router_utils import generate_keys
 from utils.qr_utils import generate_qr_code
+from utils.snowflake import SnowflakeGenerator, generate_short_code_from_snowflake, base62_encode
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, text
 from turtle_link_shortener.models import User as UserModel, URL as URLModel, UserURL
 from turtle_link_shortener.security import Password
 from turtle_link_shortener.errors import UserNotFound, URLNotValid, URLForwardError
@@ -22,12 +23,28 @@ user = APIRouter()
 
 @user.post("/user/create", tags=["users"])
 async def create_user(new_user: UserCreate, db: Session = Depends(get_db)):
+    hashed_password = Password.hash(new_user.password)
     db_user = UserModel(**new_user.model_dump())
-    db_user.password = Password.hash(db_user.password)
 
+    snowflake = SnowflakeGenerator(worker_id=1, datacenter_id=0)
+    user_id = snowflake.next_id()
+
+    db_user.password = hashed_password
+    db_user.id = user_id
+
+    # sql = text(
+    #     "INSERT INTO users (id, username, password, is_admin, is_deleted) VALUES (?, ?, ?, ?)",
+    #     [user_id, new_user.username, hashed_password, new_user.is_deleted]
+    # )
+
+    # db.execute(
+    #     sql
+    # )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+    # result = db.execute("SELECT * FROM users WHERE id = ?", [user_id]).fetchone()
+    # db_user = UserModel.from_row(result)
 
     return db_user
 
@@ -61,9 +78,10 @@ async def shorten_link(
     key, secret_key = generate_keys(custom_key)
     now = datetime.now()
 
+    short_code = base62_encode(user_id)
     # add the generated data to URL Model Table
-    db_url = URLModel(target_url=url.target_url, custom_url=key, 
-                      secret_key=secret_key, time_created=now)
+    db_url = URLModel(target_url=url.target_url, custom_url=short_code, 
+                    secret_key=secret_key, time_created=now)
 
     db_user_url = UserURL(user_id=user_id, link_created=key, link_time_created=now)
 

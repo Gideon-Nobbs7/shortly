@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime, BigInteger
 from sqlalchemy.orm import relationship, Mapped
 from .database import Base
 
@@ -43,7 +43,7 @@ class URL(Base):
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(BigInteger, primary_key=True)
 
     username = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)

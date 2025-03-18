@@ -5,8 +5,18 @@ from functools import lru_cache
 import os
 
 
-env_path = Path(".") / ".env"
+# env_path = Path("..") / ".env"
+# load_dotenv(dotenv_path=env_path)
+
+current_dir = Path(__file__).parent
+root_dir = current_dir.parent
+env_path = root_dir / ".env"
+
 load_dotenv(dotenv_path=env_path)
+
+# print(f"Loading .env from: {env_path}")
+# print(f".env exists: {env_path.exists()}")
+# print(f"POSTGRES_PASSWORD found: {os.environ.get("POSTGRES_PASSWORD")}")
 
 
 class Settings(BaseSettings):
@@ -18,9 +28,12 @@ class Settings(BaseSettings):
     POSTGRES_USER : str = os.environ.get("POSTGRES_USER")
     POSTGRES_PASSWORD: str = os.environ.get("POSTGRES_PASSWORD")
     POSTGRES_SERVER : str = os.environ.get("POSTGRES_SERVER","localhost")
-    POSTGRES_PORT : str = os.environ.get("POSTGRES_PORT",5432)
+    POSTGRES_PORT : str = os.environ.get("POSTGRES_PORT")   
     POSTGRES_DB : str = os.environ.get("POSTGRES_DB")
     DATABASE_URL: str = os.environ.get("DATABASE_URL")
+
+    class Config:
+        env_file = str(env_path)
 
 
 @lru_cache
