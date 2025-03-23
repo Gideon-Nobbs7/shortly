@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends
-from schemas.user import AdminCreate
-from utils.database_utils import get_db
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-from turtle_link_shortener.models import User as UserModel, UserURL
-from turtle_link_shortener.security import Password
-from turtle_link_shortener.errors import UserNotFound
+from ..schemas.user import AdminCreate
+from ..utils.database_utils import get_db
+from ..turtle_link_shortener.models import User as UserModel, UserURL
+from ..turtle_link_shortener.security import Password
+from ..turtle_link_shortener.errors import UserNotFound
+
 
 admin = APIRouter()
 

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from turtle_link_shortener.database import engine, Base
+from ..turtle_link_shortener.database import engine, Base
 
 
 def get_db():

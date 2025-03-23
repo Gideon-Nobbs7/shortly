@@ -9,14 +9,14 @@ import os
 # load_dotenv(dotenv_path=env_path)
 
 current_dir = Path(__file__).parent
-root_dir = current_dir.parent
+root_dir = current_dir.parent.parent
 env_path = root_dir / ".env"
 
 load_dotenv(dotenv_path=env_path)
 
 # print(f"Loading .env from: {env_path}")
 # print(f".env exists: {env_path.exists()}")
-# print(f"POSTGRES_PASSWORD found: {os.environ.get("POSTGRES_PASSWORD")}")
+print(f"DATABASE_URL found: {os.environ.get("DATABASE_URL")}")
 
 
 class Settings(BaseSettings):

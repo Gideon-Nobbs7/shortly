@@ -1,16 +1,16 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import RedirectResponse
-from schemas.user import UserCreate
-from schemas.url import URLBase
-from utils.database_utils import get_db
-from utils.router_utils import generate_keys
-from utils.qr_utils import generate_qr_code
-from utils.snowflake import SnowflakeGenerator, generate_short_code_from_snowflake, base62_encode
 from sqlalchemy.orm import Session
 from sqlalchemy import select, text
-from turtle_link_shortener.models import User as UserModel, URL as URLModel, UserURL
-from turtle_link_shortener.security import Password
-from turtle_link_shortener.errors import UserNotFound, URLNotValid, URLForwardError
+from ..turtle_link_shortener.models import User as UserModel, URL as URLModel, UserURL
+from ..turtle_link_shortener.security import Password
+from ..turtle_link_shortener.errors import UserNotFound, URLNotValid, URLForwardError
+from ..schemas.user import UserCreate
+from ..schemas.url import URLBase
+from ..utils.database_utils import get_db
+from ..utils.router_utils import generate_keys
+from ..utils.qr_utils import generate_qr_code
+from ..utils.snowflake import SnowflakeGenerator, generate_short_code_from_snowflake, base62_encode
 from pydantic import AnyUrl
 from pydantic.tools import parse_obj_as
 from datetime import datetime

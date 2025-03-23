@@ -10,13 +10,7 @@ services:
       - shortly-network
     volumes:
       - type: bind
-        source: ./routes
-        target: /app/
-      - type: bind
-        source:  ./turtle_link_shortener
-        target: /app/
-      - type: bind
-        source:  ./utils
+        source: ./app
         target: /app/
     ports:
       -  8000:8000
@@ -35,13 +29,7 @@ services:
       - shortly-network
     volumes:
       - type: bind
-        source: ./routes
-        target: /app/
-      - type: bind
-        source:  ./turtle_link_shortener
-        target: /app/
-      - type: bind
-        source:  ./utils
+        source: ./app
         target: /app/
     ports:
       -  8001:8001
