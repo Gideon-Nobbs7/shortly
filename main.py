@@ -1,8 +1,8 @@
 from fastapi import FastAPI, status
 from fastapi.responses import HTMLResponse
 
-from app.routes.admin import admin
-import app.routes.user as UserRoute
+from src.routes.admin import admin
+import src.routes.user as UserRoute
 import uvicorn
 
 

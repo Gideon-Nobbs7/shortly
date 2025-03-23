@@ -16,7 +16,7 @@ load_dotenv(dotenv_path=env_path)
 
 # print(f"Loading .env from: {env_path}")
 # print(f".env exists: {env_path.exists()}")
-print(f"DATABASE_URL found: {os.environ.get("DATABASE_URL")}")
+# print(f"DATABASE_URL found: {os.environ.get("DATABASE_URL")}")
 
 
 class Settings(BaseSettings):
@@ -27,13 +27,14 @@ class Settings(BaseSettings):
 
     POSTGRES_USER : str = os.environ.get("POSTGRES_USER")
     POSTGRES_PASSWORD: str = os.environ.get("POSTGRES_PASSWORD")
-    POSTGRES_SERVER : str = os.environ.get("POSTGRES_SERVER","localhost")
+    POSTGRES_SERVER : str = os.environ.get("POSTGRES_SERVER")
     POSTGRES_PORT : str = os.environ.get("POSTGRES_PORT")   
     POSTGRES_DB : str = os.environ.get("POSTGRES_DB")
     DATABASE_URL: str = os.environ.get("DATABASE_URL")
 
     class Config:
         env_file = str(env_path)
+        extra = "ignore"
 
 
 @lru_cache

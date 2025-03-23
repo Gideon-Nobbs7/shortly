@@ -11,8 +11,8 @@ RUN pip install -r requirements.txt
 
 COPY . /app/
 
+RUN chmod +x /app/main.py
+
 EXPOSE 8000
 
-ENTRYPOINT [ "python" ]
-
-CMD ["main.py"]
+CMD ["python", "/app/main.py"]

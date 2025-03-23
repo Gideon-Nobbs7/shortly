@@ -10,13 +10,15 @@ services:
       - shortly-network
     volumes:
       - type: bind
-        source: ./app
+        source: .
         target: /app/
     ports:
       -  8000:8000
+    env_file:
+      - ./.env
     environment:
-      - DATABASE_URL=${POSTGRES_DB}
       - WORKER_ID=1
+      - DATABASE_URL=${DATABASE_URL}
   
   shortly-2:
     image: shortly-2
@@ -29,13 +31,15 @@ services:
       - shortly-network
     volumes:
       - type: bind
-        source: ./app
+        source: .
         target: /app/
     ports:
       -  8001:8001
+    env_file:
+      - ./.env
     environment:
-      - DATABASE_URL=${POSTGRES_DB}
-      - WORKER_ID=2 
+      - WORKER_ID=2
+      - DATABASE_URL=${DATABASE_URL} 
   
   db:
     image: postgres:15.1-alpine
