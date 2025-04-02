@@ -3,7 +3,7 @@ import threading
 
 # Snowflake ID Generator
 class SnowflakeGenerator:
-    def __init__(self, worker_id, datacenter_id=0, sequence=0, twepoch=1609459200000):  # epoch: Jan 1, 2021
+    def __init__(self, worker_id, datacenter_id=0, sequence=0, twepoch=1609459200000): 
         # Bit lengths
         self.worker_id_bits = 5
         self.datacenter_id_bits = 5
@@ -127,11 +127,5 @@ def generate_short_code_from_snowflake(worker_id=1, datacenter_id=0):
     # Convert to fixed-length base62 string
     return base62_encode(snowflake_id, length=7)
 
-# Example usage
-# if __name__ == "__main__":
-#     # Generate a few short codes to demonstrate
-#     for i in range(5):
-#         short_code = generate_short_code_from_snowflake(worker_id=1)
-#         print(f"Generated short code: {short_code}")
-#         # Small delay to see different timestamps
-#         time.sleep(0.1)
+
+
