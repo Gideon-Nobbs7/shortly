@@ -1,0 +1,22 @@
+name: shortly-ci
+
+on:
+    pull_request:
+        branches: [main]
+
+jobs:
+    tests:
+        name: Test
+        runs-on: ubuntu-latest
+    
+        steps:
+            - name: Checks out code
+              uses: actions/checkout@v4
+              
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                python-version: '3.12'
+             
+            - name: Force Failure
+              run: (exit 1)
